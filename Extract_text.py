@@ -17,7 +17,7 @@ pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tessera
 st.title("📂 Auto-Scan Local Folder")
 
 # Upload a Zip file
-# uploaded_zip = st.file_uploader("Upload a Zip file of images", type="zip")
+uploaded_zip = st.file_uploader("Upload a Zip file of images", type="zip")
 
 # Enter folder path manually
 folder_path = st.text_input("Enter the folder path where your images are stored")
@@ -60,13 +60,13 @@ if st.button("Search"):
                             found = True
             return found
 
-        # if uploaded_zip is not None:
-        #     with tempfile.TemporaryDirectory() as tmpdir:
-        #         with zipfile.ZipFile(uploaded_zip, "r") as zip_ref:
-        #             zip_ref.extractall(tmpdir)
+        if uploaded_zip is not None:
+             with tempfile.TemporaryDirectory() as tmpdir:
+                 with zipfile.ZipFile(uploaded_zip, "r") as zip_ref:
+                     zip_ref.extractall(tmpdir)
 
-        #         st.success(f"Extracted images from zip file!")
-        #         found_any = search_images(tmpdir)
+                 st.success(f"Extracted images from zip file!")
+                 found_any = search_images(tmpdir)
 
         if folder_path and os.path.exists(folder_path):
             st.success(f"Scanning images from folder: {folder_path}")
